@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Biryani:wght@200&family=Dosis&family=Fugaz+One&family=Gochi+Hand&family=Philosopher&family=Poor+Story&family=Roboto:wght@300;400&family=Rubik+Dirt&family=Source+Sans+Pro&family=Space+Mono&family=Special+Elite&display=swap');
+
+@font-face {
+    font-family: 'poke-font';
+    src: url('./assets/fonts/PocketMonk-15ze.ttf');
+}
+
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/*
+    2. Remove default margin
+  */
+* {
+    margin: 0;
+}
+
+/*
+    3. Allow percentage-based heights in the application
+  */
+html,
+body {
+    height: 100%;
+}
+
+/*
+    Typographic tweaks!
+    4. Add accessible line-height
+    5. Improve text rendering
+  */
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Roboto', sans-serif;
+    color: #FFF7B6;
+    background-image: url('./assets/images/pokemonBG.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/*
+    6. Improve media defaults
+  */
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+/*
+    7. Remove built-in form typography styles
+  */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/*
+    8. Avoid text overflows
+  */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+/*
+    9. Create a root stacking context
+  */
+#root,
+#__next {
+    isolation: isolate;
+}
+
+.pokemonTitleImg {
+    max-width: 30rem;
+    height: auto;
+    margin-left: 2rem;
+    margin-top: 1.5rem;
+}
+
+.flex-group-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-group-random {
+    display: flex;
+    justify-content: end;
+    margin-right: 12rem;
+    margin-top: -7rem;
+}
+
+.flex-group-search {
+    display: flex;
+    justify-content: end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    margin-right: 2rem;
+}
+
+.searchInput {
+    min-width: 15rem;
+    max-height: 2rem;
+    border-radius: 1.5rem;
+    background-color: #FFF7B6;
+}
+
+.searchInput::placeholder {
+    text-indent: .8rem;
+}
+
+.pokeSearchImg {
+    max-width: 2rem;
+    height: auto;
+}
+
+.pokeRandomImg {
+    max-width: 2rem;
+    height: auto;
+}
+
+#searchBtn {
+    max-width: 2rem;
+    height: 2rem;
+    margin: 0rem;
+    padding: 0rem;
+}
