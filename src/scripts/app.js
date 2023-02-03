@@ -18,12 +18,16 @@ https://tailwindcss.com/
 Have a Prototype in Figma (X)
 */
 
+import { InjectPokemonDataToParentContainer, InjectEvolutionData, InjectLocationData } from "./injections.js";
+
 // declare global variables
 const pokeDataCont = document.querySelector('#pokeDataCont');
 let randomBtn = document.querySelector('#randomBtn');
 let searchBar = document.querySelector('#searchBar');
 let searchBtn = document.querySelector('#searchBtn');
 let pokemonUrl, randomPokemonUrl, speciesUrl, evolutionChainUrl, encounterUrl, pokemonSearchValue;
+let pokemonName, pokemonID, defaultSprite, shinySprite, pokemonType, pokemonAbilities, pokemonMoves;
+let pokemonEvolutions, pokemonLocation;
 let allPokeUrl = `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=648`;
 
 // declare event listners
@@ -63,13 +67,8 @@ const GetDisplayAllPokemon = async () => {
     });
 }
 
-// GetDisplayAllPokemon(); this function will be used for display settings if time permits: sort by, show x amount at a time, etc.
+// GetDisplayAllPokemon(); this function will be used for display settings if time permits: sort by, show x amount at a time, etc. But remember to create a GETALLDATA function! check above dummy!!!
 
-const GetAllPokemonForRandom = async () => {
-    const response = await fetch(allPokeUrl);
-    const pokemon = await response.json();
-    GetPoke
-}
 
 const GetPokemonDataSearch = async nameID => {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${nameID}/`);
@@ -77,25 +76,40 @@ const GetPokemonDataSearch = async nameID => {
     console.log('GetPokemonDataSearch function below:')
     console.log(pokemon);
     console.log(`Name logged: ${pokemon.name[0].toUpperCase()}${pokemon.name.substring(1)}`);// capitalize first letter
+    pokemonName = `${pokemon.name[0].toUpperCase()}${pokemon.name.substring(1)}`;
+    console.log(`Pokemon name variable logged: ${typeof pokemonName}`);
     console.log(`ID logged: ${pokemon.id}`);
+    pokemonID = `#${pokemon.id}`;
+    console.log(`Pokemon ID variable logged: ${typeof pokemonID}`);
     console.log(`Front Sprite logged: ${pokemon.sprites.front_default}`);
+    defaultSprite = `${pokemon.sprites.front_default}`;
+    console.log(`Pokemon Default Sprite variable logged: ${defaultSprite}`);
     console.log(`Shiny Sprite logged: ${pokemon.sprites.front_shiny}`);
+    shinySprite = `${pokemon.sprites.front_shiny}`;
+    console.log(`Pokemon Shiny Sprite variable logged: ${shinySprite}`);
     console.log('Abilities logged:')
     let abilitiesArr = [];
     pokemon.abilities.map(x => {
         abilitiesArr.push(`${x.ability.name.charAt(0).toUpperCase()}${x.ability.name.substring(1)}`);
-        console.log(abilitiesArr.join(', '));
+        console.log(abilitiesArr.join(', '));// see if you can use includes to check if a string has the '-' character and if it does split it into an array with '-' and iterate throuhg words making first char capitalized rest lower case. If no the just reutnr the single word with first letter upper case rest lower case. try same for moves.. and see if you can use replace method.
     });
+    pokemonAbilities = `${abilitiesArr.join(', ')}`;
+    console.log(`Pokemon Abilities variable logged: ${pokemonAbilities}`);
     let typesArr = [];
     pokemon.types.map(x => typesArr.push(`${x.type.name.charAt(0).toUpperCase()}${x.type.name.substring(1)}`));
     console.log(`Types logged: ${typesArr.join(', ')}`);
+    pokemonType = `Type: ${typesArr.join(', ')}`;
+    console.log(`Pokemon Types variable logged: ${pokemonType}`);
     let movesArr = [];
     pokemon.moves.map(x => movesArr.push(x.move.name));
-    console.log(`Moves logged: ${movesArr.join(', ')}`);
+    console.log(`Moves logged: `);
+    pokemonMoves = `${movesArr.join(', ')}`;
+    console.log(`Pokemon Moves logged: ${pokemonMoves}`);
     speciesUrl = pokemon.species.url;
     console.log(`Species URL logged: ${speciesUrl}`);
     encounterUrl = pokemon.location_area_encounters;
     console.log(`Encounter URL logged: ${encounterUrl}`);
+    InjectPokemonDataToParentContainer(pokemonName, pokemonID, defaultSprite, shinySprite, pokemonType, pokemonAbilities, pokemonMoves);
     GetPokemonSpecies(speciesUrl);
     GetLocationEncounter(encounterUrl);
 }
@@ -120,12 +134,27 @@ const GetPokemonSpecies = async url => {
 
 const GetEvolutionChain = async url => {
     const response = await fetch(url);
-    const pokemon = await response.json();
-    console.log('GetEvolutionChain function below');
-    console.log(pokemon);
-    console.log(`Evolution 1 ${pokemon.chain.species.name}`);
-    console.log(`Evolution 2 ${pokemon.chain.evolves_to[0].species.name}`);
-    console.log(`Evolution 3 ${pokemon.chain.evolves_to[0].evolves_to[0].species.name}`);
+    const pokemon = await response.json()
+    let evolutionArr = [];
+    evolutionArr.push(`${pokemon.chain.species.name}`);
+    if(pokemon.chain.evolves_to.length === 0)
+    {
+        evolutionArr.push('N/A');
+    }
+    else
+    {
+        evolutionArr.push(`${pokemon.chain.evolves_to[0].species.name}`);
+    }
+    if(pokemon.chain.evolves_to.length === 0 || pokemon.chain.evolves_to[0].evolves_to.length === 0)
+    {
+        evolutionArr.push('N/A');
+    }
+    else
+    {
+        evolutionArr.push(`${pokemon.chain.evolves_to[0].evolves_to[0].species.name}`);
+    }
+    pokemonEvolutions = evolutionArr.map(x => x.charAt(0).toUpperCase() + x.substring(1)).join(', ');
+    InjectEvolutionData(pokemonEvolutions)
 }
 
 const GetLocationEncounter = async url => {
@@ -134,14 +163,18 @@ const GetLocationEncounter = async url => {
     console.log(`GetLocationEncounter function belowL`);
     console.log(pokemon);
     let locationArr = [];
-    if (pokemon.length === 0) {
-        console.log('Locations not found');
+    if (pokemon.length === 0 || pokemon === [] || pokemon === null) {
+        pokemonLocation = locationArr.push('Locations Not Found');
+        InjectLocationData(pokemonLocation);
     }
     else {
         pokemon.map(x => {
             locationArr.push(`${x.location_area.name}`);
         });
         let randomIndex = Math.floor(Math.random() * locationArr.length);
-        console.log(locationArr[randomIndex].split('-').map(x => `${x.charAt(0).toUpperCase()}${x.substring(1)}`).join('-'));
+        pokemonLocation = locationArr[randomIndex].split('-').join(' ').split(' ').map(x => x.charAt(0).toUpperCase() + x.substring(1)).join(' ');
+        console.log('Here is location data ' + pokemonLocation);
+        InjectLocationData(pokemonLocation);
     }
+    // make element function here
 }
