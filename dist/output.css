@@ -547,6 +547,145 @@ video {
   }
 }
 
+.z-10 {
+  z-index: 10;
+}
+
+.z-20 {
+  z-index: 20;
+}
+
+.col-span-7 {
+  grid-column: span 7 / span 7;
+}
+
+.col-span-5 {
+  grid-column: span 5 / span 5;
+}
+
+.col-span-6 {
+  grid-column: span 6 / span 6;
+}
+
+.col-span-3 {
+  grid-column: span 3 / span 3;
+}
+
+.col-span-12 {
+  grid-column: span 12 / span 12;
+}
+
+.mt-20 {
+  margin-top: 5rem;
+}
+
+.mt-11 {
+  margin-top: 2.75rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.grid {
+  display: grid;
+}
+
+.w-48 {
+  width: 12rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.grid-cols-12 {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.justify-items-center {
+  justify-items: center;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.justify-self-start {
+  justify-self: start;
+}
+
+.justify-self-end {
+  justify-self: end;
+}
+
+.justify-self-center {
+  justify-self: center;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.rounded-t-lg {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.border {
+  border-width: 1px;
+}
+
+.border-b {
+  border-bottom-width: 1px;
+}
+
+.border-gray-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity));
+}
+
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.text-gray-900 {
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+
 @font-face {
   font-family: 'poke-font';
 
@@ -557,7 +696,9 @@ video {
   1. Use a more-intuitive box-sizing model.
 */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -573,7 +714,8 @@ video {
     3. Allow percentage-based heights in the application
   */
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -591,13 +733,18 @@ body {
   background-image: url('./assets/images/pokemonBG.png');
   background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 /*
     6. Improve media defaults
   */
 
-img, picture, video, canvas, svg {
+img,
+picture,
+video,
+canvas,
+svg {
   display: block;
   max-width: 100%;
 }
@@ -606,7 +753,10 @@ img, picture, video, canvas, svg {
     7. Remove built-in form typography styles
   */
 
-input, button, textarea, select {
+input,
+button,
+textarea,
+select {
   font: inherit;
 }
 
@@ -614,7 +764,13 @@ input, button, textarea, select {
     8. Avoid text overflows
   */
 
-p, h1, h2, h3, h4, h5, h6 {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   overflow-wrap: break-word;
 }
 
@@ -622,7 +778,8 @@ p, h1, h2, h3, h4, h5, h6 {
     9. Create a root stacking context
   */
 
-#root, #__next {
+#root,
+#__next {
   isolation: isolate;
 }
 
@@ -641,18 +798,41 @@ p, h1, h2, h3, h4, h5, h6 {
 .flex-group-random {
   display: flex;
   justify-content: end;
+  margin-right: 12rem;
+  margin-top: -7rem;
 }
 
 .flex-group-search {
   display: flex;
   justify-content: end;
   gap: 1rem;
+  margin-top: 1.5rem;
+  margin-right: 2rem;
+}
+
+.flex-group-data {
+  margin-top: -3rem;
+}
+
+#name {
+  font-size: 3rem;
 }
 
 .searchInput {
   min-width: 15rem;
   max-height: 2rem;
   border-radius: 1.5rem;
+  background-color: #FFF7B6;
+  color: #03172F;
+  text-indent: .8rem;
+}
+
+.searchInput::-moz-placeholder {
+  text-indent: .8rem;
+}
+
+.searchInput::placeholder {
+  text-indent: .8rem;
 }
 
 .pokeSearchImg {
@@ -672,6 +852,647 @@ p, h1, h2, h3, h4, h5, h6 {
   padding: 0rem;
 }
 
+#location, #type, #evolutions, #abilities, #moves {
+  font-size: 2rem;
+}
 
+.largePokeBall {
+  margin-top: -42rem;
+  margin-left: -11rem;
+  max-width: 55rem;
+  height: auto;
+  transform: rotate(-13deg);
+}
 
+#collectionBtn {
+  background-color: none;
+  margin-left: 2rem;
+  font-size: 3rem;
+  font-family: 'poke-font', sans-serif;
+  color: #FFCB05;
+}
 
+.collectionText {
+  text-shadow: -3px 0 #3D7DCA, 0 3px #3D7DCA, 3px 0 #3D7DCA, 0 -3px #3D7DCA;
+}
+
+/* WICKED CSS BELOW */
+
+/*!
+ * WickedCSS v1.0 (https://github.com/kristofferandreasen/wickedCSS)
+ * Copyright 2015 Kristoffer Andreasen
+ * MIT License
+ */
+
+.barrelRoll,
+ .fadeIn,
+ .floater,
+ .heartbeat,
+ .pulse,
+ .rollerLeft,
+ .rollerRight,
+ .rotateIn,
+ .rotateInLeft,
+ .rotateInRight,
+ .rotation,
+ .shake,
+ .sideToSide,
+ .slideDown,
+ .slideLeft,
+ .slideRight,
+ .slideUp,
+ .spinner,
+ .wiggle,
+ .zoomer,
+ .zoomerOut {
+  visibility: visible !important
+}
+
+.rotation {
+  animation-name: rotation;
+  -webkit-animation-name: rotation;
+  animation-duration: 4s;
+  -webkit-animation-duration: 4s;
+  animation-timing-function: linear;
+  -webkit-animation-timing-function: linear;
+  animation-iteration-count: infinite
+}
+
+.rotation,
+ .sideToSide {
+  -webkit-animation-iteration-count: infinite
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0) translateX(50%) rotate(0)
+  }
+
+  to {
+    transform: rotate(360deg) translateX(50%) rotate(-360deg)
+  }
+}
+
+.sideToSide {
+  animation-name: sideToSide;
+  -webkit-animation-name: sideToSide;
+  animation-duration: 3s;
+  -webkit-animation-duration: 3s;
+  animation-timing-function: ease;
+  -webkit-animation-timing-function: ease;
+  animation-iteration-count: infinite
+}
+
+@keyframes sideToSide {
+  0%,
+     100% {
+    transform: translate(100%, 0)
+  }
+
+  50% {
+    transform: translate(-100%, 0)
+  }
+}
+
+.zoomer {
+  animation-name: zoomer;
+  -webkit-animation-name: zoomer;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: cubic-bezier(.5, .2, .3, 1);
+  animation-iteration-count: 1
+}
+
+.zoomer,
+ .zoomerOut {
+  -webkit-animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(.5, .2, .3, 1);
+  animation-duration: 1s
+}
+
+@keyframes zoomer {
+  0% {
+    transform: scale(.3)
+  }
+
+  100% {
+    transform: scale(1)
+  }
+}
+
+.zoomerOut {
+  animation-name: zoomerOut;
+  -webkit-animation-name: zoomerOut;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: cubic-bezier(.5, .2, .3, 1);
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards
+}
+
+.rollerRight,
+ .zoomerOut {
+  -webkit-animation-fill-mode: forwards
+}
+
+@keyframes zoomerOut {
+  0% {
+    transform: scale(1)
+  }
+
+  100% {
+    transform: scale(0)
+  }
+}
+
+.spinner {
+  animation-name: spinner;
+  -webkit-animation-name: spinner;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: linear;
+  animation-iteration-count: infinite
+}
+
+.pulse,
+ .spinner {
+  animation-timing-function: linear;
+  animation-duration: 2s
+}
+
+@keyframes spinner {
+  from {
+    transform: rotate(0)
+  }
+
+  to {
+    transform: rotate(360deg)
+  }
+}
+
+.pulse {
+  animation-name: pulse;
+  -webkit-animation-name: pulse;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite
+}
+
+@keyframes pulse {
+  0%,
+     100% {
+    transform: scale(.9);
+    opacity: .9
+  }
+
+  50% {
+    transform: scale(1);
+    opacity: 1
+  }
+}
+
+.shake {
+  animation-name: shake;
+  -webkit-animation-name: shake;
+  -webkit-animation-duration: .4s;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-iteration-count: 1
+}
+
+.barrelRoll,
+ .shake {
+  animation-iteration-count: 1;
+  animation-timing-function: ease;
+  animation-duration: .4s
+}
+
+@keyframes shake {
+  0%,
+     100% {
+    transform: translateX(0)
+  }
+
+  16%,
+     50%,
+     83% {
+    transform: translateX(-10px)
+  }
+
+  33%,
+     66% {
+    transform: translateX(10px)
+  }
+}
+
+.barrelRoll {
+  animation-name: barrelRoll;
+  -webkit-animation-name: barrelRoll;
+  -webkit-animation-duration: .4s;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-iteration-count: 1
+}
+
+@keyframes barrelRoll {
+  from {
+    transform: rotate(0)
+  }
+
+  to {
+    transform: rotate(360deg)
+  }
+}
+
+.floater {
+  animation-name: floater;
+  -webkit-animation-name: floater;
+  animation-duration: 1.5s;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite
+}
+
+.floater,
+ .wiggle {
+  animation-iteration-count: infinite
+}
+
+@keyframes floater {
+  0%,
+     100% {
+    transform: translateY(0)
+  }
+
+  50% {
+    transform: translateY(8%)
+  }
+}
+
+.wiggle {
+  animation-name: wiggle;
+  -webkit-animation-name: wiggle;
+  animation-duration: 2.5s;
+  -webkit-animation-duration: 2.5s;
+  -webkit-animation-iteration-count: infinite
+}
+
+@keyframes wiggle {
+  0%,
+     100% {
+    transform: rotate(-4deg)
+  }
+
+  50% {
+    transform: rotate(4deg)
+  }
+}
+
+.pound {
+  animation-name: pound;
+  -webkit-animation-name: pound;
+  animation-duration: .5s;
+  -webkit-animation-duration: .5s;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-iteration-count: infinite;
+  visibility: visible !important
+}
+
+.heartbeat,
+ .pound {
+  animation-iteration-count: infinite;
+  animation-timing-function: ease
+}
+
+@keyframes pound {
+  to {
+    transform: scale(1.2)
+  }
+}
+
+.heartbeat {
+  animation-name: heartbeat;
+  -webkit-animation-name: heartbeat;
+  animation-duration: 3s;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-iteration-count: infinite
+}
+
+@keyframes heartbeat {
+  0%,
+     100% {
+    transform: scale(1)
+  }
+
+  10% {
+    transform: scale(1.2)
+  }
+
+  20% {
+    transform: scale(1.4)
+  }
+}
+
+.rollerRight {
+  animation-name: rollerRight;
+  -webkit-animation-name: rollerRight;
+  animation-duration: 2s;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-iteration-count: 1;
+  animation-fill-mode: forwards
+}
+
+.rollerLeft,
+ .rollerRight {
+  animation-iteration-count: 1;
+  animation-timing-function: ease
+}
+
+@keyframes rollerRight {
+  0% {
+    transform: translateX(-200px) rotate(0);
+    opacity: 0
+  }
+
+  100% {
+    transform: translateX(0) rotate(2turn);
+    opacity: 1
+  }
+}
+
+.rollerLeft {
+  animation-name: rollerLeft;
+  -webkit-animation-name: rollerLeft;
+  animation-duration: 2s;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-iteration-count: 1;
+  animation-fill-mode: forwards
+}
+
+.fadeOut,
+ .rollerLeft {
+  -webkit-animation-fill-mode: forwards
+}
+
+@keyframes rollerLeft {
+  0% {
+    transform: translateX(200px) rotate(0);
+    opacity: 0
+  }
+
+  100% {
+    transform: translateX(0) rotate(-2turn);
+    opacity: 1
+  }
+}
+
+.slideDown {
+  animation-name: slideDown;
+  -webkit-animation-name: slideDown;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: ease
+}
+
+.slideDown,
+ .slideUp {
+  animation-timing-function: ease;
+  animation-duration: 1s
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1
+  }
+}
+
+.slideUp {
+  animation-name: slideUp;
+  -webkit-animation-name: slideUp;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: ease
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1
+  }
+}
+
+.slideLeft {
+  animation-name: slideLeft;
+  -webkit-animation-name: slideLeft;
+  animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: ease
+}
+
+.slideLeft,
+ .slideRight {
+  animation-timing-function: ease
+}
+
+@keyframes slideLeft {
+  0% {
+    transform: translateX(150%);
+    opacity: 0
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1
+  }
+}
+
+.slideRight {
+  animation-name: slideRight;
+  -webkit-animation-name: slideRight;
+  animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: ease
+}
+
+@keyframes slideRight {
+  0% {
+    transform: translateX(-150%);
+    opacity: 0
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1
+  }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+  -webkit-animation-name: fadeIn;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: ease
+}
+
+.fadeIn,
+ .fadeOut {
+  animation-timing-function: ease;
+  animation-duration: 4s
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0
+  }
+
+  100% {
+    opacity: 1
+  }
+}
+
+.fadeOut {
+  animation-name: fadeOut;
+  -webkit-animation-name: fadeOut;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: ease;
+  animation-fill-mode: forwards
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1
+  }
+
+  100% {
+    opacity: 0
+  }
+}
+
+.rotateInRight {
+  animation-name: rotateInRight;
+  -webkit-animation-name: rotateInRight;
+  animation-duration: 3s;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-iteration-count: 1
+}
+
+.rotateInLeft,
+ .rotateInRight {
+  animation-timing-function: ease-in-out
+}
+
+@keyframes rotateInRight {
+  from {
+    transform: rotate(0) translateX(100%) rotate(0)
+  }
+
+  to {
+    transform: rotate(360deg) translateX(0) rotate(-360deg)
+  }
+}
+
+.rotateInLeft {
+  animation-name: rotateInLeft;
+  -webkit-animation-name: rotateInLeft;
+  animation-duration: 3s;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-iteration-count: 1
+}
+
+.rotateIn,
+ .rotateInLeft {
+  -webkit-animation-iteration-count: 1
+}
+
+@keyframes rotateInLeft {
+  from {
+    transform: rotate(0) translateX(-100%) rotate(0)
+  }
+
+  to {
+    transform: rotate(360deg) translateX(0) rotate(-360deg)
+  }
+}
+
+.rotateIn {
+  animation-name: rotateIn;
+  -webkit-animation-name: rotateIn;
+  animation-duration: 3s;
+  -webkit-animation-duration: 3s;
+  animation-timing-function: ease;
+  -webkit-animation-timing-function: ease;
+  animation-iteration-count: 1;
+  transform-origin: center
+}
+
+@keyframes rotateIn {
+  0% {
+    transform: rotate3d(0, 0, 1, -720deg);
+    opacity: 0
+  }
+
+  100% {
+    transform: none;
+    opacity: 1
+  }
+}
+
+.bounceIn {
+  animation-name: bounceIn;
+  animation-duration: .8s;
+  animation-timing-function: cubic-bezier(.215, .61, .355, 1)
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3)
+  }
+
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1)
+  }
+
+  40% {
+    transform: scale3d(.9, .9, .9)
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale3d(1.03, 1.03, 1.03)
+  }
+
+  80% {
+    transform: scale3d(.97, .97, .97)
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1)
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .dark\:border-gray-600 {
+    --tw-border-opacity: 1;
+    border-color: rgb(75 85 99 / var(--tw-border-opacity));
+  }
+
+  .dark\:bg-gray-700 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+  }
+
+  .dark\:text-white {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+  }
+}
