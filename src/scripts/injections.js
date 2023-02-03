@@ -1,5 +1,3 @@
-// might have to make create element functions for different fucntions then piece them together to make the whole poke data container
-
 // create elements
 
 // this function will inject data from GetPokeDataSearch function. 

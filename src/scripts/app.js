@@ -1,8 +1,8 @@
 /*
 Ability to search by name and Pokedex Number (X)
 only Gen 1 - 5 pokemon (X)
-Ability to search by name and Pokedex Number 
-Ability to get a random pokemon
+Ability to search by name and Pokedex Number (X)
+Ability to get a random pokemon (X)
 image of pokemon and shiny form (X)
 Pokemon Name (X)
 show 1 location from any game. If pokemon doesn't have a location, have it return "N/A" (X)
@@ -11,10 +11,7 @@ All possible abilities (X)
 All possible moves (X)
 Show Evolutionary Paths, if pokemon doesn't have an evolutionary path, have it return "N/A" (X)
 And a Favorites list
-
-Fully Responsive using Tailwind CSS
-https://tailwindcss.com/
-
+Fully Responsive using Tailwind CSS https://tailwindcss.com/
 Have a Prototype in Figma (X)
 */
 
@@ -103,7 +100,7 @@ const GetPokemonDataSearch = async nameID => {
     let movesArr = [];
     pokemon.moves.map(x => movesArr.push(x.move.name));
     console.log(`Moves logged: `);
-    pokemonMoves = `${movesArr.join(', ')}`;
+    pokemonMoves = `${movesArr.map(x => x.replace('-', ' ')).map(y => y.split(' ').map(z => z.charAt(0).toUpperCase() + z.substring(1)).join(' '))}`;
     console.log(`Pokemon Moves logged: ${pokemonMoves}`);
     speciesUrl = pokemon.species.url;
     console.log(`Species URL logged: ${speciesUrl}`);
@@ -163,8 +160,9 @@ const GetLocationEncounter = async url => {
     console.log(`GetLocationEncounter function belowL`);
     console.log(pokemon);
     let locationArr = [];
-    if (pokemon.length === 0 || pokemon === [] || pokemon === null) {
-        pokemonLocation = locationArr.push('Locations Not Found');
+    if (pokemon.length === 0 || pokemon === []) {
+        locationArr.push('N/A');
+        pokemonLocation = locationArr;
         InjectLocationData(pokemonLocation);
     }
     else {
@@ -176,5 +174,4 @@ const GetLocationEncounter = async url => {
         console.log('Here is location data ' + pokemonLocation);
         InjectLocationData(pokemonLocation);
     }
-    // make element function here
 }
