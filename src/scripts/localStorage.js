@@ -1,5 +1,3 @@
-//declare global variables
-
 //add to favorites function
 function SaveFavoritesToLocalStorage(pokemon) {
     //get current values that are saved into local storage

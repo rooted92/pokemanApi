@@ -96,6 +96,10 @@ h6 {
  font-size: 1.1rem;
 }
 
+.pokeFont {
+    font-family: 'poke-font', sans-serif;
+}
+
 .pokemonTitleImg {
     max-width: 30rem;
     height: auto;
@@ -180,6 +184,13 @@ h6 {
 .favoritesIcon {
     max-width: auto;
     height: 2rem;
+    transition: transform 0.2s;
+    transform: scale(1);
+}
+
+.favoritesIcon:hover {
+    transform: scale(1.5);
+    cursor: pointer;
 }
 
 .deleteIcon {
@@ -212,6 +223,11 @@ h6 {
     font-family: 'poke-font', sans-serif;
     color: #FFCB05;
     margin-left: 2rem;
+    font-size: 3.5rem;
+}
+
+.collectionTextModal {
+    font-family: 'poke-font', sans-serif;
     font-size: 2rem;
 }
 
@@ -275,14 +291,39 @@ h6 {
 
 #small-modal {
     display: none;
-    
 }
 
 .modalContent {
     background-color: #093657;
     border-radius: 5px;
     border: solid 4px #fff6b6;
-    min-height: 30rem;
+    max-height: 30rem;
+    max-width: auto;
+    overflow: scroll;
+}
+
+.modalContent::-webkit-scrollbar { 
+    width: .8rem;
+    border-radius: .5rem;
+    background-color: #f5f5f500;
+    display: none;
+}
+ 
+.modalContent::-webkit-scrollbar-thumb {
+  background-color: #fff6b6;
+  border-radius: .5rem;
+}
+ 
+.modalContent::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #fff6b6;
+  border-radius: 10px;
+  background-color: #fff6b6;
+  border: none;
+  display: none;
+}
+ 
+.modalContent::-webkit-scrollbar-thumb:hover {
+  background-color: #fff6b6;
 }
 
 .listItemCard {
@@ -293,14 +334,14 @@ h6 {
 }
 
 .popoverDiv {
-    height: 15rem;
-    width: 20rem;
+    height: 18rem;
+    width: 16rem;
     background-color: #03172F;
     border: solid 4px #FFCB05;
     border-radius: 5px;
-    margin-top: -18rem;
+    margin-top: -22.5rem;
     position: absolute;
-    right: 5rem;
+    right: 6.5rem;
     z-index: 400;
     overflow-y: scroll;
     padding: 1rem;
@@ -328,6 +369,11 @@ h6 {
  
 .popoverDiv::-webkit-scrollbar-thumb:hover {
   background-color: #fff6b6;
+}
+
+.goldenPokeBall {
+    max-width: 2.8rem;
+    height: auto;
 }
 
 /* WICKED CSS BELOW */

@@ -1,7 +1,7 @@
 // create elements
-import { GetFavorites, SaveFavoritesToLocalStorage, RemoveFromLocalStorage } from "./localStorage.js";
-import { pokemonObject, injectListItems } from "./app.js";
-let favorites = GetFavorites();
+import { RemoveFromLocalStorage } from "./localStorage.js";
+import { pokemonObject, injectListItems, GetPokemonDataSearch } from "./app.js";
+
 // this function will inject data from GetPokeDataSearch function. 
 const InjectPokemonDataToParentContainer = (pokeName, pokeID, defSprite, shSprite, pokeType, pokeAbilities, pokeMoves) => {
     let name = document.querySelector('#name');
@@ -24,90 +24,108 @@ const InjectPokemonDataToParentContainer = (pokeName, pokeID, defSprite, shSprit
     movesText.textContent = pokeMoves;
 }
 
+// this function displays text of evolution names, takes array as argumet
 const InjectEvolutionData = evolutions => {
     let evolutionText = document.querySelector('#evolutionText');
     evolutionText.textContent = evolutions;
 }
 
-// this function displays location
+// this function displays text of location, takes array as argument
 const InjectLocationData = pokeLocation => {
     let location = document.querySelector('#location');
     location.textContent = pokeLocation;
 }
 
-// this function displays evolutionary paths
+// this function displays evolutionary paths with sprites and text via 'view evolutions' link
 const InjectSpritesForEvolutionaryPaths = async nameID => {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${nameID}/`);
     const pokemon = await response.json();
 
-
-    console.log(pokemon.sprites.front_default);
-    console.log(pokemon.sprites.front_shiny);
-    // <div id="popover" class="popoverDiv">
-    //     <div class="flex justify-between gap-8 p-12">
-    //         <div class="col-span-auto">
-    //             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/364.png" alt="sdsdfsasf">
-    //                 <p>pokemon</p>
-    //         </div>
-    // </div>
     let img = document.createElement('img');
     img.src = pokemon.sprites.front_default
     img.alt = 'Pokemon Evolution Sprite';
-    img.classList.add('justify-self-center', 'm-0');
     let p = document.createElement('p');
     p.textContent = pokemon.name;
-    // p.classList.add('justify-self-center');
 
     let innerDiv = document.createElement('div');
-    innerDiv.classList.add('col-span-2', 'justify-self-center');
-    innerDiv.append(img, p);
-
-    // let outerDiv = document.createElement('div');
-    // outerDiv.classList.add('grid', 'grid-cols-12', 'justify-items-center', 'p-8');
-    // outerDiv.append(innerDiv);
+    innerDiv.classList.add('columns-1', 'justify-self-center', 'flex', 'gap-4');
+    innerDiv.innerHTML = `<img src="${pokemon.sprites.front_default}" alt="Pokemon Evolution Sprite" /><p>${pokemon.name.charAt(0).toUpperCase()}${pokemon.name.substring(1)}</p>`;
 
     popover.append(innerDiv);
 }
 
-const PopulateList = () => {
-    // may have to fetch api here
+//this function creates elements and displays them in favorites list
+const PopulateList = async (nameId) => {
+    // Get data to populate
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${nameId}/`);
+    const pokemon = await response.json();
+    console.log('Get Flavor text hopefully!!');
+    console.log(pokemon);
     let span = document.createElement('span');
     span.classList.add('sr-only');
     span.textContent = 'Close modal';
 
+    // add delete img here
     let img = document.createElement('img');
     img.classList.add('deleteIcon');
-    img.src = pokemonObject.defaultSprite;
+    img.src = './assets/images/deleteButtonIcon.png';
     img.alt = 'delete icon';
+    img.style.maxHeight = '2rem';
+    img.style.width = 'auto';
 
-    let button = document.createElement('button');
-    button.id = 'deleteItem';
-    button.type = 'button';
-    button.setAttribute('data-modal-hide', 'small-modal');
-    button.title = 'Delete Pokemon';
-    button.append(img, span);
+    let deleteBtn = document.createElement('button');
+    deleteBtn.id = 'deleteItem';
+    deleteBtn.type = 'button';
+    deleteBtn.setAttribute('data-modal-hide', 'small-modal');
+    deleteBtn.title = 'Delete Pokemon';
+    deleteBtn.append(img, span);
+
+    // add poke sprite here
+    let spriteBtnImg = document.createElement('img');
+    spriteBtnImg.src = pokemon.sprites.front_default;
+    spriteBtnImg.alt = `Image of ${pokemon.name}`;
+    spriteBtnImg.style.maxHeight = '4rem';
+    spriteBtnImg.style.width = 'auto';
+    spriteBtnImg.classList.add('spriteBtnImg');
+
+    let spriteBtn = document.createElement('button');
+    spriteBtn.id = 'spriteBtn';
+    spriteBtn.type = 'button';
+    spriteBtn.title = 'Get Pokemon Data';
+    spriteBtn.append(spriteBtnImg);
 
     let p = document.createElement('p');
-    p.textContent = `${pokemonObject.id} ${pokemonObject.name}`;
+    p.textContent = `#${pokemon.id} ${pokemon.name.charAt(0).toUpperCase()}${pokemon.name.substring(1)}`;
+    p.style.padding = '.5rem';
 
     let innerDiv = document.createElement('div');
     innerDiv.id = 'innderDiv';
-    innerDiv.classList.add('col-span-1', 'flex', 'justify-between');
-    innerDiv.append(p, button);
+    innerDiv.classList.add('col-span-2', 'justify-self-start', 'flex');
+    innerDiv.append(p);
+
+    let outerDiv = document.createElement('div');
+    outerDiv.id = 'outerDiv';
+    outerDiv.classList.add('col-span-1', 'justify-between', 'flex');
+    outerDiv.append(spriteBtn, deleteBtn);
 
     let itemDiv = document.createElement('div');
     itemDiv.id = 'item';
-    itemDiv.classList.add('listItemCard', 'grid', 'grid-cols-1', 'm-0');
+    itemDiv.classList.add('listItemCard', 'grid', 'grid-cols-3', 'm-0');
 
-    itemDiv.append(innerDiv);
+    itemDiv.append(innerDiv, outerDiv);
     injectListItems.append(itemDiv);
 
-    button.addEventListener('click', function () {
+    deleteBtn.addEventListener('click', function () {
         console.log('delete button clicked!');
         RemoveFromLocalStorage(pokemonObject.name);
         console.log(`${pokemonObject.name} was deleted from list`);
         injectListItems.removeChild(itemDiv);
     });
+    spriteBtn.addEventListener('click', function(){
+        GetPokemonDataSearch(pokemon.name);
+    });
 }
+
+// function to get flavor-text (random facts) will go here
 
 export { InjectPokemonDataToParentContainer, InjectEvolutionData, InjectLocationData, InjectSpritesForEvolutionaryPaths, PopulateList };

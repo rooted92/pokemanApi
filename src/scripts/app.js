@@ -1,12 +1,10 @@
-/*
-And a Favorites list
-Fully Responsive using Tailwind CSS https://tailwindcss.com/
-
-take the value of evelutianry name pass it into function that will retunr img to id in html
-*/
+// Pedro Castaneda
+// 02/04/20230
+// Pokemon API Project
+// TODO - Finish debugging favorites list, and add the 'Fun Factoids' feature
 
 import { InjectPokemonDataToParentContainer, InjectEvolutionData, InjectLocationData, InjectSpritesForEvolutionaryPaths, PopulateList } from "./injections.js";
-import { SaveFavoritesToLocalStorage, GetFavorites, RemoveFromLocalStorage } from "./localStorage.js";
+import { SaveFavoritesToLocalStorage, GetFavorites } from "./localStorage.js";
 
 // declare global variables
 const pokeDataCont = document.querySelector('#pokeDataCont');
@@ -21,29 +19,28 @@ let closeBtn = document.querySelector('#closeBtn');
 let injectListItems = document.querySelector('#injectListItems');
 let popover = document.getElementById('popover');
 let viewEvolutionsBtn = document.querySelector('#viewEvolutionsBtn');
-let pokemonUrl, speciesUrl, evolutionChainUrl, encounterUrl, pokemonSearchValue;
+let speciesUrl, evolutionChainUrl, encounterUrl, pokemonSearchValue;
 let pokemonName, pokemonID, defaultSprite, shinySprite, pokemonType, pokemonAbilities, pokemonMoves;
 let pokemonEvolutions, pokemonLocation;
 let pokemonObject = {};// declare global object variable to be able to save the pokemon to favorites
 let allPokeUrl = `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=648`;
 
 // declare event listners
+// allows time to retrieve data then sets loading elements to none when done
 window.addEventListener('load', function () {
     GetRandomPokemon();
     this.document.querySelector('#loadingIcon').style.display = 'none';
     pokeDataCont.style.display = 'block';
     popover.style.display = 'none';
 })
-
+// Populates saved favorites list on page load
 window.onload = function () {
-    let favorites = GetFavorites();
+    favorites = GetFavorites();
     if (favorites.length > 0) {
-        for (let i = 0; i < favorites.length; i++) {
-            pokemonObject.name = favorites[i];
-            PopulateList();
-        }
+        favorites.map(x => PopulateList(x.toLowerCase()));
     }
 };
+// toggles evolution div on/off
 viewEvolutionsBtn.addEventListener('click', function () {
     if (popover.style.display === 'none') {
         popover.style.display = 'block';
@@ -52,76 +49,44 @@ viewEvolutionsBtn.addEventListener('click', function () {
         popover.style.display = 'none';
     }
 });
-
+//gets random pokemon data
 randomBtn.addEventListener('click', function () {
     GetRandomPokemon();
 });
-
+// searches based on input value via click
 searchBtn.addEventListener('click', function () {
-    console.log('Searching pokemon...');
     pokemonSearchValue = searchBar.value.toLowerCase();
-    console.log('Looking for... ' + pokemonSearchValue);
     GetPokemonDataSearch(pokemonSearchValue);
 });
-
+// searches based on input value via enter key press
 searchBar.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
-        console.log('Searching via enter key...');
         pokemonSearchValue = searchBar.value.toLowerCase();
         GetPokemonDataSearch(pokemonSearchValue);
     }
 });
-
+// adds pokemon to favorites list
 favoritesBtn.addEventListener('click', function () {
-    console.log(`${pokemonObject.name} added to Favorites!`);
     let favorites = GetFavorites();// had to reinitialize to make sure latest version of favorites array is used
-    console.log(favorites);
     let favoritesStr = JSON.stringify(favorites);// stringify array to make proper comparison with includes
-    console.log(favoritesStr);
     if (!favoritesStr.includes(JSON.stringify(pokemonObject.name))) {
         SaveFavoritesToLocalStorage(pokemonObject.name);
-        PopulateList();
+        PopulateList(pokemonObject.name.toLowerCase());
     }
 });
-
+// displays items in collection
 collectionBtn.addEventListener('click', function () {
-    // add function to create elements and populate with data
-    // Use pokemon object values as arguments to populate on html
     smallModal.style.display = 'block';
-    // potentially add display list here
 });
-
+// closes collection window
 closeBtn.addEventListener('click', function () {
     smallModal.style.display = 'none';
 })
 
-
-
-favorites.map(x => console.log(x));
-// console.log(favorites);
-// declare functions
-// const GetDisplayAllPokemon = async () => {
-//     const response = await fetch(allPokeUrl);
-//     const pokemon = await response.json();
-
-//     console.log('GetDisplayAllPokemon function below:')
-//     console.log(pokemon);
-//     pokemon.results.slice(0, 4).map(pkmn => {
-//         pokemonUrl = pkmn.url;
-//         console.log('Searching all pokemon...');
-//         console.log(pokemonUrl);
-//         console.log('Place your create element function in here');
-//     });
-// }
-// GetDisplayAllPokemon(); 
-// this function will be used for display settings if time permits: sort by, show x amount at a time, etc. But remember to create a GETALLDATA function! check above dummy!!!
-
-
+// function to find pokemon
 const GetPokemonDataSearch = async nameID => {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${nameID}/`);
     const pokemon = await response.json();
-    console.log('GetPokemonDataSearch function below:')
-    console.log(pokemon)
     pokemonName = `${pokemon.name[0].toUpperCase()}${pokemon.name.substring(1)}`;
     pokemonID = `#${pokemon.id}`;
     defaultSprite = `${pokemon.sprites.front_default}`;
@@ -129,7 +94,6 @@ const GetPokemonDataSearch = async nameID => {
     let abilitiesArr = [];
     pokemon.abilities.map(x => {
         abilitiesArr.push(`${x.ability.name.charAt(0).toUpperCase()}${x.ability.name.substring(1)}`);
-        console.log(abilitiesArr.join(', '));// see if you can use includes to check if a string has the '-' character and if it does split it into an array with '-' and iterate throuhg words making first char capitalized rest lower case. If no the just reutnr the single word with first letter upper case rest lower case. try same for moves.. and see if you can use replace method.
     });
     pokemonAbilities = `${abilitiesArr.map(x => x.replace('-', ' ')).join(', ')}`;
     let typesArr = [];
@@ -149,12 +113,11 @@ const GetPokemonDataSearch = async nameID => {
         pokemonAbilities: pokemonAbilities,
         pokemonMoves: pokemonMoves
     }
-    // add logic to save favorited unfavorited states
     InjectPokemonDataToParentContainer(pokemonName, pokemonID, defaultSprite, shinySprite, pokemonType, pokemonAbilities, pokemonMoves);
     GetPokemonSpecies(speciesUrl);
     GetLocationEncounter(encounterUrl);
 }
-
+// Generates data from a random  pokemon
 const GetRandomPokemon = async () => {
     const response = await fetch(allPokeUrl);
     const pokemon = await response.json();
@@ -162,48 +125,38 @@ const GetRandomPokemon = async () => {
     let randomPokemon = pokemon.results[randomIndex].name;
     GetPokemonDataSearch(randomPokemon);
 }
-
+// Uses species url to get evolution url
 const GetPokemonSpecies = async url => {
     const response = await fetch(url);
     const pokemon = await response.json();
-    console.log('GetPokemonSpecies function below:');
-    console.log(pokemon);
     evolutionChainUrl = pokemon.evolution_chain.url;
     GetEvolutionChain(evolutionChainUrl);
 }
-
+// gets all evolution names and added to array, InjectSprites..Function gets sprites for each evolution
 const GetEvolutionChain = async url => {
     const response = await fetch(url);
     const pokemon = await response.json()
-    console.log(pokemon);
+    popover.innerHTML = '';
     let evolutionArr = [];
     evolutionArr.push(`${pokemon.chain.species.name}`);
+    InjectSpritesForEvolutionaryPaths(pokemon.chain.species.name);
     if (pokemon.chain.evolves_to.length !== 0) {
-        console.log('Array was not empty!!')
         pokemon.chain.evolves_to.map(x => {
-            evolutionArr.push(x.species.name)
-            console.log(evolutionArr[x]);
+            evolutionArr.push(x.species.name);
+            InjectSpritesForEvolutionaryPaths(x.species.name);
         });
         if (pokemon.chain.evolves_to[0].evolves_to.length !== 0) {
             evolutionArr.push(`${pokemon.chain.evolves_to[0].evolves_to[0].species.name}`);
-            console.log('Second evolution array value: ' + evolutionArr[2]);
+            InjectSpritesForEvolutionaryPaths(pokemon.chain.evolves_to[0].evolves_to[0].species.name);
         }
-    }
-    console.log('Injecting all elments...')
-    popover.innerHTML = '';
-    for (let i = 0; i < evolutionArr.length; i++) {
-        console.log('Sprites injected for: ' + evolutionArr[i]);
-        InjectSpritesForEvolutionaryPaths(evolutionArr[i]);
     }
     pokemonEvolutions = evolutionArr.map(x => x.charAt(0).toUpperCase() + x.substring(1)).join(', ');
     InjectEvolutionData(pokemonEvolutions);
 }
-
+// gets location names and them to array, InjectLoactionData will display location text in browser
 const GetLocationEncounter = async url => {
     const response = await fetch(url);
     const pokemon = await response.json();
-    console.log(`GetLocationEncounter function belowL`);
-    console.log(pokemon);
     let locationArr = [];
     if (pokemon.length === 0 || pokemon === []) {
         locationArr.push('Unspecified');
@@ -220,9 +173,4 @@ const GetLocationEncounter = async url => {
     }
 }
 
-// Display pokemon in favorites list
-if (favorites.length !== 0) {
-    PopulateList();
-}
-
-export { pokemonObject, injectListItems };
+export { pokemonObject, injectListItems, GetPokemonDataSearch, smallModal };

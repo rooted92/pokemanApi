@@ -66,11 +66,11 @@
             <div class="col-span-3 p-4 justify-self-start">
                 <p id="evolutionText" class="text"></p>
                 <button id="viewEvolutionsBtn" type="button">
-                    <p class="viewSpriteText">View Evolution Sprites</p>
+                    <p class="viewSpriteText">View Evolutions</p>
                 </button>
             </div>
         </div>
-        <div id="popover" class="popoverDiv grid grid-cols-12 gap-4 justify-items-center">
+        <div id="popover" class="popoverDiv grid grid-cols-12 gap-4 justify-items-center slideUp">
 
         </div>
         <div class="grid grid-cols-12 gap-4 mt-11 justify-items-center">
@@ -113,13 +113,13 @@
 
     <!-- Small Modal -->
     <div id="small-modal" tabindex="-1"
-        class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+        class="fixed slideRight top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
         <div class="relative w-full h-full max-w-md md:h-auto">
             <!-- Modal content -->
             <div class="relative modalContent">
                 <!-- Modal header -->
                 <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
-                    <p class="collectionText">Collection</p>
+                    <p class="collectionTextModal">Collection</p>
                     <button id="closeBtn" type="button" class="" data-modal-hide="small-modal">
                         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -137,7 +137,17 @@
             </div>
         </div>
     </div>
-
+    <div class="container">
+        <div class="grid grid-cols-12 justify-center">
+            <div class="col-span-6">
+                <img src="./assets/images/goldenPokeball.png" alt="">
+            </div>
+            <div class="col-span-6 flex-col justify-center">
+                <p class="mt-28 text-3xl pokeFont text-center mb-14">Fun Factoids</p>
+                <p id="funFactoid" class="text-center">Click the Golden Pokeball to Learn Some Fun Facts!</p>
+            </div>
+        </div>
+    </div>
     <script src="./scripts/app.js" type="module"></script>
 </body>
 
