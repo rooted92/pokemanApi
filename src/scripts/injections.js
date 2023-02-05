@@ -1,6 +1,6 @@
 // create elements
 import { RemoveFromLocalStorage } from "./localStorage.js";
-import { pokemonObject, injectListItems, GetPokemonDataSearch } from "./app.js";
+import { pokemonObject, injectListItems, GetPokemonDataSearch, funFactoid } from "./app.js";
 
 // this function will inject data from GetPokeDataSearch function. 
 const InjectPokemonDataToParentContainer = (pokeName, pokeID, defSprite, shSprite, pokeType, pokeAbilities, pokeMoves) => {
@@ -59,8 +59,6 @@ const PopulateList = async (nameId) => {
     // Get data to populate
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${nameId}/`);
     const pokemon = await response.json();
-    console.log('Get Flavor text hopefully!!');
-    console.log(pokemon);
     let span = document.createElement('span');
     span.classList.add('sr-only');
     span.textContent = 'Close modal';
@@ -127,5 +125,28 @@ const PopulateList = async (nameId) => {
 }
 
 // function to get flavor-text (random facts) will go here
+const GetFlavorText = async () => {
+    let speciesIndex = Math.floor(Math.random() * 648) + 1;
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${speciesIndex}/`);//flaver txt in species url
+    const pokemon = await response.json();
+    console.log(pokemon);//check for name
+    let flavorTxtArr = [];
+    console.log('Data in flaver text function');
+    pokemon.flavor_text_entries.map(ft => {
+        if(ft.language.name === 'en')
+        {
+            flavorTxtArr.push(ft.flavor_text);
+        }
+    });
+    let textIndex = Math.floor(Math.random() * flavorTxtArr.length);
+    GetSpriteForFactoids(pokemon.name, flavorTxtArr[textIndex], funFactoid);
+}
 
-export { InjectPokemonDataToParentContainer, InjectEvolutionData, InjectLocationData, InjectSpritesForEvolutionaryPaths, PopulateList };
+// get image for factoid div
+const GetSpriteForFactoids = async (name, arr, funElement) => {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}/`);
+    const pokemon = await response.json();
+    funElement.innerHTML = `<p class="funPokeName mb-4">${name.charAt(0).toUpperCase()}${name.substring(1)}</p><img id="dreamWorldSprite" class="mb-4" src="${pokemon.sprites.other.dream_world.front_default}" alt="Image of ${name}"<br>${arr}`;
+}
+
+export { InjectPokemonDataToParentContainer, InjectEvolutionData, InjectLocationData, InjectSpritesForEvolutionaryPaths, PopulateList, GetFlavorText };

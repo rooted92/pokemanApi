@@ -635,12 +635,12 @@ video {
   margin-top: 7rem;
 }
 
-.mb-5 {
-  margin-bottom: 1.25rem;
-}
-
 .mb-14 {
   margin-bottom: 3.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
 }
 
 .block {
@@ -783,6 +783,10 @@ video {
 
 .text-center {
   text-align: center;
+}
+
+.text-justify {
+  text-align: justify;
 }
 
 .text-lg {
@@ -1180,6 +1184,20 @@ h6 {
 
 .goldenPokeBall {
   max-width: 2.8rem;
+  height: auto;
+}
+
+.yellowPokeFont {
+  font-family: 'poke-font', sans-serif;
+  color: #FFCB05;
+}
+
+.funPokeName{
+  font-size: 2rem;
+}
+
+#dreamWorldSprite{
+  max-width: 7rem;
   height: auto;
 }
 

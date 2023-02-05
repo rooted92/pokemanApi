@@ -376,6 +376,20 @@ h6 {
     height: auto;
 }
 
+.yellowPokeFont {
+    font-family: 'poke-font', sans-serif;
+    color: #FFCB05;
+}
+
+.funPokeName{
+    font-size: 2rem;
+}
+
+#dreamWorldSprite{
+    max-width: 7rem;
+    height: auto;
+}
+
 /* WICKED CSS BELOW */
 
 /*!

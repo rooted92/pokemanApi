@@ -3,7 +3,7 @@
 // Pokemon API Project
 // TODO - Finish debugging favorites list, and add the 'Fun Factoids' feature
 
-import { InjectPokemonDataToParentContainer, InjectEvolutionData, InjectLocationData, InjectSpritesForEvolutionaryPaths, PopulateList } from "./injections.js";
+import { InjectPokemonDataToParentContainer, InjectEvolutionData, InjectLocationData, InjectSpritesForEvolutionaryPaths, PopulateList, GetFlavorText } from "./injections.js";
 import { SaveFavoritesToLocalStorage, GetFavorites } from "./localStorage.js";
 
 // declare global variables
@@ -19,6 +19,9 @@ let closeBtn = document.querySelector('#closeBtn');
 let injectListItems = document.querySelector('#injectListItems');
 let popover = document.getElementById('popover');
 let viewEvolutionsBtn = document.querySelector('#viewEvolutionsBtn');
+let goldBtn = document.querySelector('#goldBtn');
+let funFactoid = document.querySelector('#funFactoid');
+funFactoid.style.maxWidth = '23rem';
 let speciesUrl, evolutionChainUrl, encounterUrl, pokemonSearchValue;
 let pokemonName, pokemonID, defaultSprite, shinySprite, pokemonType, pokemonAbilities, pokemonMoves;
 let pokemonEvolutions, pokemonLocation;
@@ -82,6 +85,11 @@ collectionBtn.addEventListener('click', function () {
 closeBtn.addEventListener('click', function () {
     smallModal.style.display = 'none';
 })
+
+goldBtn.addEventListener('click', function(){
+    GetFlavorText();
+});
+
 
 // function to find pokemon
 const GetPokemonDataSearch = async nameID => {
@@ -173,4 +181,4 @@ const GetLocationEncounter = async url => {
     }
 }
 
-export { pokemonObject, injectListItems, GetPokemonDataSearch, smallModal };
+export { pokemonObject, injectListItems, GetPokemonDataSearch, smallModal, funFactoid };
