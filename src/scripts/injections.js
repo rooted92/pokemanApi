@@ -114,10 +114,8 @@ const PopulateList = async (nameId) => {
     injectListItems.append(itemDiv);
 
     deleteBtn.addEventListener('click', function () {
-        console.log('delete button clicked!');
-        RemoveFromLocalStorage(pokemonObject.name);
-        console.log(`${pokemonObject.name} was deleted from list`);
-        injectListItems.removeChild(itemDiv);
+        RemoveFromLocalStorage(pokemonObject.name);// will delete item from list
+        injectListItems.removeChild(itemDiv);// remove item element from list
     });
     spriteBtn.addEventListener('click', function(){
         GetPokemonDataSearch(pokemon.name);
@@ -129,13 +127,11 @@ const GetFlavorText = async () => {
     let speciesIndex = Math.floor(Math.random() * 648) + 1;
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${speciesIndex}/`);//flaver txt in species url
     const pokemon = await response.json();
-    console.log(pokemon);//check for name
     let flavorTxtArr = [];
-    console.log('Data in flaver text function');
     pokemon.flavor_text_entries.map(ft => {
         if(ft.language.name === 'en')
         {
-            flavorTxtArr.push(ft.flavor_text);
+            flavorTxtArr.push(ft.flavor_text);// get all flavor texts that are in english
         }
     });
     let textIndex = Math.floor(Math.random() * flavorTxtArr.length);
@@ -143,10 +139,10 @@ const GetFlavorText = async () => {
 }
 
 // get image for factoid div
-const GetSpriteForFactoids = async (name, arr, funElement) => {
+const GetSpriteForFactoids = async (name, arr, element) => {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}/`);
     const pokemon = await response.json();
-    funElement.innerHTML = `<p class="funPokeName mb-4">${name.charAt(0).toUpperCase()}${name.substring(1)}</p><img id="dreamWorldSprite" class="mb-4" src="${pokemon.sprites.other.dream_world.front_default}" alt="Image of ${name}"<br>${arr}`;
+    element.innerHTML = `<p class="funPokeName mb-4">${name.charAt(0).toUpperCase()}${name.substring(1)}</p><img id="dreamWorldSprite" class="mb-4" src="${pokemon.sprites.other.dream_world.front_default}" alt="Image of ${name}"<br>${arr}`;
 }
 
 export { InjectPokemonDataToParentContainer, InjectEvolutionData, InjectLocationData, InjectSpritesForEvolutionaryPaths, PopulateList, GetFlavorText };

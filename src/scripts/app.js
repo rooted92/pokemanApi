@@ -1,7 +1,8 @@
 // Pedro Castaneda
 // 02/04/20230
 // Pokemon API Project
-// TODO - Finish debugging favorites list, and add the 'Fun Factoids' feature
+// Click the Rocket Team pokeball to get random pokemon, click 'My Collections' to view favorites
+// TODO - Finish debugging favorites list
 
 import { InjectPokemonDataToParentContainer, InjectEvolutionData, InjectLocationData, InjectSpritesForEvolutionaryPaths, PopulateList, GetFlavorText } from "./injections.js";
 import { SaveFavoritesToLocalStorage, GetFavorites } from "./localStorage.js";
@@ -24,8 +25,10 @@ let funFactoid = document.querySelector('#funFactoid');
 funFactoid.style.maxWidth = '23rem';
 let speciesUrl, evolutionChainUrl, encounterUrl, pokemonSearchValue;
 let pokemonName, pokemonID, defaultSprite, shinySprite, pokemonType, pokemonAbilities, pokemonMoves;
-let pokemonEvolutions, pokemonLocation;
+let pokemonEvolutions, pokemonLocation, isNameValid;
 let pokemonObject = {};// declare global object variable to be able to save the pokemon to favorites
+let pokemonNameArr = [];
+let pokemonIDArr = [];
 let allPokeUrl = `https://pokeapi.co/api/v2/pokemon/?offset=0&limit=648`;
 
 // declare event listners
@@ -59,13 +62,33 @@ randomBtn.addEventListener('click', function () {
 // searches based on input value via click
 searchBtn.addEventListener('click', function () {
     pokemonSearchValue = searchBar.value.toLowerCase();
-    GetPokemonDataSearch(pokemonSearchValue);
+    isNameValid = pokemonNameArr.some(x => x === pokemonSearchValue);
+    if (pokemonSearchValue === '') {
+        alert('Please enter Name or ID.');
+    }
+    else if (isNameValid === false)
+    {
+        alert(`${pokemonSearchValue} - was not found in our records.`);
+    }
+    else {
+        GetPokemonDataSearch(pokemonSearchValue);
+    }
 });
 // searches based on input value via enter key press
 searchBar.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
-        pokemonSearchValue = searchBar.value.toLowerCase();
-        GetPokemonDataSearch(pokemonSearchValue);
+        isNameValid = pokemonNameArr.some(x => x === searchBar.value);// will return true if name is in array
+        if (searchBar.value === '') {
+            alert('Please enter Name or ID.');
+        }
+        else if(isNameValid === false)
+        {
+            alert(`${searchBar.value}} - was not found in our records.`);
+        }
+        else {
+            pokemonSearchValue = searchBar.value.toLowerCase();
+            GetPokemonDataSearch(pokemonSearchValue);
+        }
     }
 });
 // adds pokemon to favorites list
@@ -86,7 +109,7 @@ closeBtn.addEventListener('click', function () {
     smallModal.style.display = 'none';
 })
 
-goldBtn.addEventListener('click', function(){
+goldBtn.addEventListener('click', function () {
     GetFlavorText();
 });
 
@@ -131,6 +154,9 @@ const GetRandomPokemon = async () => {
     const pokemon = await response.json();
     let randomIndex = Math.floor(Math.random() * pokemon.results.length);
     let randomPokemon = pokemon.results[randomIndex].name;
+    pokemon.results.map(x => {
+        pokemonNameArr.push(x.name);
+    })
     GetPokemonDataSearch(randomPokemon);
 }
 // Uses species url to get evolution url
