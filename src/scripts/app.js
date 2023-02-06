@@ -2,6 +2,7 @@
 // 02/04/20230
 // Pokemon API Project
 // Click the Rocket Team pokeball to get random pokemon, click 'My Collections' to view favorites
+// Click 'view evolutions' link to toggle evolutions modal on/off
 // TODO - Finish debugging favorites list
 
 import { InjectPokemonDataToParentContainer, InjectEvolutionData, InjectLocationData, InjectSpritesForEvolutionaryPaths, PopulateList, GetFlavorText } from "./injections.js";
