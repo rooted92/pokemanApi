@@ -6,7 +6,7 @@
 
 @font-face {
     font-family: 'poke-font';
-    src: url('./assets/fonts/PocketMonk-15ze.ttf');
+    src: url('../assetsFolder/fontsFolder/PocketMonk-15ze.ttf');
 }
 
 /*
@@ -43,7 +43,7 @@ body {
     -webkit-font-smoothing: antialiased;
     font-family: 'Roboto', sans-serif;
     color: #FFF7B6;
-    background-image: url('./assets/images/pokemonBG.png');
+    background-image: url('../assetsFolder/imagesFolder/pokemonBG.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;

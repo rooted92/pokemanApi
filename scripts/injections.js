@@ -66,7 +66,7 @@ const PopulateList = async (nameId) => {
     // add delete img here
     let img = document.createElement('img');
     img.classList.add('deleteIcon');
-    img.src = './assets/images/deleteButtonIcon.png';
+    img.src = '../assetsFolder/imagesFolder/deleteButtonIcon.png';
     img.alt = 'delete icon';
     img.style.maxHeight = '2rem';
     img.style.width = 'auto';
