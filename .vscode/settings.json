@@ -1,3 +1,5 @@
 {
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "appService.defaultWebAppToDeploy": "/subscriptions/7f9a5e33-8459-495b-ae03-a77798edfbcb/resourceGroups/PortfolioProjects/providers/Microsoft.Web/sites/pkmnapi",
+    "appService.deploySubpath": "dist"
 }
