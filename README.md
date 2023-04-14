@@ -1,4 +1,5 @@
 # pokemanApi
+Pokedex Deployment Link: https://pkmnapi.azurewebsites.net/
 Pedro Castaneda
 Created On: 02-01-2023
 Project Name: Pokeman API
